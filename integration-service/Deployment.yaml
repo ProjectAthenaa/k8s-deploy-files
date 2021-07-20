@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  namespace: general
+  name: integration-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000
+      name: grpc
+  selector:
+    app: integration
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  namespace: general
+  name: integration
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: integration
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      namespace: general
+      labels:
+        app: integration
+    spec:
+      nodeSelector:
+        doks.digitalocean.com/node-pool: general
+      containers:
+        - name: integration
+          image: registry.digitalocean.com/athenabot/integration-service:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REDIS_URL
+              value: rediss://default:kulqkv6en3um9u09@private-athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061
+            - name: PG_URL
+              value: postgresql://doadmin:rh3rc0vgg1f706kz@private-athenadb-do-user-9223163-0.b.db.ondigitalocean.com:25060/defaultdb
+            - name: ENVIRONMENT
+              value: Production
+            - name: SAMPLE_RATE
+              value: "1.0"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/grpc-backend: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+      grpc_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+    linkerd.io/inject: ingress
+  name: integration-ingress-grpc
+  namespace: general
+spec:
+  rules:
+    - host: svc.integration.athenabot.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: integration-service
+                port:
+                  number: 3000
