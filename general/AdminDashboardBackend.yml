@@ -10,6 +10,8 @@ spec:
   ports:
     - port: 3000
       targetPort: 3000
+  selector:
+    app: admin-dashboard-backend
 ---
 apiVersion: apps/v1
 kind: Deployment
