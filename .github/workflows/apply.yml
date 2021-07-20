@@ -29,9 +29,9 @@ jobs:
         working-directory: "general"
         run: kubectl apply -f .
 
-      - name: Apply Monitor Configuration
-        working-directory: "monitors"
-        run: kubectl apply -f .
+#      - name: Apply Monitor Configuration
+#        working-directory: "monitors"
+#        run: kubectl apply -f .
 
       - name: Apply Module Configuration
         working-directory: "modules"
