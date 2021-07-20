@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  namespace: general
+  name: calendar-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: calendar
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  namespace: general
+  name: calendar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calendar
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      namespace: general
+      labels:
+        app: calendar
+    spec:
+      nodeSelector:
+        doks.digitalocean.com/node-pool: general
+      containers:
+        - name: calendar
+          image: registry.digitalocean.com/athenabot/calendar-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: REDIS_URL
+              value: rediss://default:kulqkv6en3um9u09@athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061
+            - name: PG_DSN
+              value: postgresql://doadmin:rh3rc0vgg1f706kz@athenadb-do-user-9223163-0.b.db.ondigitalocean.com:25060/defaultdb
+            - name: SPACES_KEY
+              value: PO3PKFAEKCQWOJ6MNQR7
+            - name: SPACES_SECRET
+              value: SEZOdptcZOxXNMCTFqhWq498ji/1bcR9gOQNBmdiurk

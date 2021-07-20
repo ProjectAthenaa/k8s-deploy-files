@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  name: admin-dashboard-backend
+  namespace: general
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: general
+  annotations:
+    linkerd.io/inject: enabled
+  name: admin-dashboard-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-dashboard-backend
+  template:
+    metadata:
+      namespace: general
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        app: admin-dashboard-backend
+    spec:
+      nodeSelector:
+        doks.digitalocean.com/node-pool: general
+      containers:
+        - name: user-dashboard-backend
+          image: registry.digitalocean.com/athenabot/dashboards/admin-backend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PG_URL
+              value: "postgresql://doadmin:rh3rc0vgg1f706kz@private-athenadb-do-user-9223163-0.b.db.ondigitalocean.com:25060/defaultdb"
+            - name: REDIS_URL
+              value: "rediss://default:kulqkv6en3um9u09@athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061"
+            - name: STRIPE_KEY
+              value: "sk_test_51JDcsMB9aTqZxurQ1Tp12t9qH9u1u80SiNQVsDpDpfxzftbROY9wOxrQq9U7cXYykkoTL7d8vXPPv310hrp5eeZm00grLIRpxI"
