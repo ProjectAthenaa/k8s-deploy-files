@@ -1,4 +1,3 @@
-## for all deploy files
+## Kubernetes Deployments Repository
 
-1. and your files here
-2. update github actions clone this repo and deploy file
+This repository contains all the kubernetes manifests for all services, on change it updates the cluster accordingly.
