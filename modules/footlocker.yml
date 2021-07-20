@@ -28,8 +28,9 @@ spec:
       app: footlocker-us
   template:
     metadata:
-      annotations:
-        linkerd.io/inject: enabled
+      #      annotations:
+      #        config.linkerd.io/proxy-log-level: warn,linkerd2_proxy=info,h2=debug
+      #        linkerd.io/inject: enabled
       namespace: modules
       labels:
         app: footlocker-us
@@ -55,14 +56,9 @@ metadata:
     ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/grpc-backend: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "0"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "0"
-    nginx.ingress.kubernetes.io/proxy-write-timeout: "0"
-    nginx.ingress.kubernetes.io/server-snippet: |
-      grpc_connect_timeout 0;
-      grpc_read_timeout 0;
-      grpc_send_timeout 0;
-      client_body_timeout 0;
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "500"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "500"
+    nginx.ingress.kubernetes.io/proxy-write-timeout: "500"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       proxy_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
       grpc_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;

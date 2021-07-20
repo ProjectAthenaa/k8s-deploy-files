@@ -1,0 +1,44 @@
+name: Production Push
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_API_KEY }}
+
+      - name: Save DigitalOcean kubeconfig with short-lived credentials
+        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 athena
+
+      - name: Apply Antibots Configuration
+        working-directory: "antibots"
+        run: kubectl apply -f .
+
+      - name: Apply General Configuration
+        working-directory: "general"
+        run: kubectl apply -f .
+
+      - name: Apply Monitor Configuration
+        working-directory: "monitors"
+        run: kubectl apply -f .
+
+      - name: Apply Module Configuration
+        working-directory: "modules"
+        run: kubectl apply -f .
+
+      - name: Apply gRPC Ingress Configuration
+        run: kubectl apply -f gRPC-Ingress.yml
+
+      - name: Apply http Ingress Configuration
+        run: kubectl apply -f http-Ingress.yml
