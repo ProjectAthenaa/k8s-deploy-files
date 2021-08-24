@@ -12,11 +12,11 @@ metadata:
   namespace: general
 spec:
   rules:
-    - host: svc.integration.athenabot.com
+    - host: api.athenabot.com
       http:
         paths:
           - pathType: Prefix
-            path: /
+            path: /integration/.*
             backend:
               service:
                 name: integration-service
