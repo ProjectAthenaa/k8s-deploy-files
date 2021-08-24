@@ -16,7 +16,7 @@ spec:
       http:
         paths:
             - pathType: Prefix
-              path: /integration/.*
+              path: /integration/playground
               backend:
                 service:
                   name: integration-service
