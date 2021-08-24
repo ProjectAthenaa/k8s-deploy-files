@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    linkerd.io/inject: enabled
+#  annotations:
+#    linkerd.io/inject: enabled
   namespace: general
   name: integration-service
 spec:
@@ -16,8 +16,8 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    linkerd.io/inject: enabled
+#  annotations:
+#    linkerd.io/inject: enabled
   namespace: general
   name: integration
 spec:
@@ -27,8 +27,8 @@ spec:
       app: integration
   template:
     metadata:
-      annotations:
-        linkerd.io/inject: enabled
+#      annotations:
+#        linkerd.io/inject: enabled
       namespace: general
       labels:
         app: integration
