@@ -15,7 +15,8 @@ spec:
     - host: api.athenabot.com
       http:
         paths:
-            - path: /integration/.*
+            - pathType: Prefix
+              path: /integration/.*
               backend:
                 service:
                   name: integration-service
