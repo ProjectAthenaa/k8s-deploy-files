@@ -24,7 +24,7 @@ spec:
                 port:
                   number: 8080
           - pathType: Prefix
-            path: /authentication.*
+            path: /auth.*
             backend:
               service:
                 name: authentication-service
