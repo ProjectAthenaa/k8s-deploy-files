@@ -1,23 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-#  annotations:
-#    linkerd.io/inject: enabled
+  annotations:
+    linkerd.io/inject: enabled
   name: authentication-service
   namespace: general
 spec:
   type: ClusterIP
   ports:
-    - port: 3000
-      targetPort: 3000
+    - port: 8080
+      targetPort: 8080
   selector:
     app: authentication
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-#  annotations:
-#    linkerd.io/inject: enabled
+  annotations:
+    linkerd.io/inject: enabled
   name: authentication
   namespace: general
 spec:
@@ -27,8 +27,8 @@ spec:
       app: authentication
   template:
     metadata:
-#      annotations:
-#        linkerd.io/inject: enabled
+      annotations:
+        linkerd.io/inject: enabled
       labels:
         app: authentication
       namespace: general
@@ -39,7 +39,7 @@ spec:
         - name: authentication
           image: registry.digitalocean.com/athenabot/authentication-service:latest
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
           env:
             - name: REDIS_URL
               value: rediss://default:kulqkv6en3um9u09@private-athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061
