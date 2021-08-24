@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    linkerd.io/inject: enabled
+#  annotations:
+#    linkerd.io/inject: enabled
   name: authentication-service
   namespace: general
 spec:
@@ -16,8 +16,8 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    linkerd.io/inject: enabled
+#  annotations:
+#    linkerd.io/inject: enabled
   name: authentication
   namespace: general
 spec:
@@ -27,8 +27,8 @@ spec:
       app: authentication
   template:
     metadata:
-      annotations:
-        linkerd.io/inject: enabled
+#      annotations:
+#        linkerd.io/inject: enabled
       labels:
         app: authentication
       namespace: general
@@ -38,7 +38,6 @@ spec:
       containers:
         - name: authentication
           image: registry.digitalocean.com/athenabot/authentication-service:latest
-          imagePullPolicy: "Always"
           ports:
             - containerPort: 3000
           env:

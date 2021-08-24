@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  namespace: monitors
+  name: newbalance-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: newbalance
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  namespace: monitors
+  name: newbalance
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: newbalance
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      namespace: monitors
+      labels:
+        app: newbalance
+    spec:
+      nodeSelector:
+        doks.digitalocean.com/node-pool: monitors
+      containers:
+        - name: newbalance
+          image: registry.digitalocean.com/athenabot/monitors/newbalance:latest
+          ports:
+            - containerPort: 3000
