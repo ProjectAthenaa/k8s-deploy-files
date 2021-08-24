@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/configuration-snippet: |
       proxy_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
       grpc_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
-#    linkerd.io/inject: ingress
+  #    linkerd.io/inject: ingress
   name: grpc
   namespace: general
 spec:
@@ -15,13 +15,13 @@ spec:
     - host: api.athenabot.com
       http:
         paths:
-            - pathType: Prefix
-              path: /integration/playground
-              backend:
-                service:
-                  name: integration-service
-                  port:
-                    number: 8080
+          - pathType: Prefix
+            path: /integration, /
+            backend:
+              service:
+                name: integration-service
+                port:
+                  number: 8080
 #    - host: svc.tasks.athenabot.com
 #      http:
 #        paths:
