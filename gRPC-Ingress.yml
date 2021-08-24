@@ -32,3 +32,10 @@ spec:
                 name: authentication-service
                 port:
                   number: 8080
+          - pathType: Prefix
+            path: /tasks.*
+            backend:
+              service:
+                name: scheduling-service
+                port:
+                  number: 8080
