@@ -36,7 +36,7 @@ spec:
       nodeSelector:
         doks.digitalocean.com/node-pool: general
       containers:
-        - name: user-dashboard-backend
+        - name: admin-dashboard-backend
           image: registry.digitalocean.com/athenabot/dashboards/admin-backend:latest
           ports:
             - containerPort: 8080
