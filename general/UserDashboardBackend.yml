@@ -30,6 +30,7 @@ spec:
       namespace: general
       annotations:
         linkerd.io/inject: enabled
+        config.linkerd.io/skip-outbound-ports: 25061-25061
       labels:
         app: user-dashboard
     spec:

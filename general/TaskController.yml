@@ -28,8 +28,9 @@ spec:
       app: task-controller
   template:
     metadata:
-#      annotations:
-#        linkerd.io/inject: enabled
+      annotations:
+        linkerd.io/inject: enabled
+        config.linkerd.io/skip-outbound-ports: 25061-25061
       namespace: general
       labels:
         app: task-controller
