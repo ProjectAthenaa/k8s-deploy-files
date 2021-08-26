@@ -43,16 +43,6 @@ spec:
                 name: statistics
                 port:
                   number: 3000
-    - host: admin.athenabot.com
-      http:
-        paths:
-          - pathType: Prefix
-            path: /
-            backend:
-              service:
-                name: admin-dashboard-backend
-                port:
-                  number: 3000
     - host: billing.athenabot.com
       http:
         paths:

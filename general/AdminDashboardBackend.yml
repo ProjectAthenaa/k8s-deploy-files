@@ -8,8 +8,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 3000
-      targetPort: 3000
+    - port: 8080
+      targetPort: 8080
   selector:
     app: admin-dashboard-backend
 ---
@@ -39,7 +39,7 @@ spec:
         - name: user-dashboard-backend
           image: registry.digitalocean.com/athenabot/dashboards/admin-backend:latest
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
           env:
             - name: PG_URL
               value: "postgresql://doadmin:rh3rc0vgg1f706kz@private-athenadb-do-user-9223163-0.b.db.ondigitalocean.com:25060/defaultdb"

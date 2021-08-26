@@ -39,3 +39,10 @@ spec:
                 name: scheduling-service
                 port:
                   number: 8080
+          - pathType: Prefix
+            path: /admin.*
+            backend:
+              service:
+                name: admin-dashboard-backend
+                port:
+                  number: 8080
