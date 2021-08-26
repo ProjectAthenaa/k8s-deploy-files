@@ -44,7 +44,7 @@ spec:
             - name: PG_URL
               value: "postgresql://doadmin:rh3rc0vgg1f706kz@private-athenadb-do-user-9223163-0.b.db.ondigitalocean.com:25060/defaultdb"
             - name: REDIS_URL
-              value: "rediss://default:kulqkv6en3um9u09@athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061"
+              value: "rediss://default:n6luoc78ac44pgs0@test-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061"
             - name: STRIPE_KEY
               value: "sk_test_51JDcsMB9aTqZxurQ1Tp12t9qH9u1u80SiNQVsDpDpfxzftbROY9wOxrQq9U7cXYykkoTL7d8vXPPv310hrp5eeZm00grLIRpxI"
             - name: POD_NAME
