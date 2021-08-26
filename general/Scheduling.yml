@@ -47,3 +47,7 @@ spec:
               value: postgresql://doadmin:rh3rc0vgg1f706kz@private-athenadb-do-user-9223163-0.b.db.ondigitalocean.com:25060/defaultdb
             - name: SAMPLE_RATE
               value: "1.0"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name

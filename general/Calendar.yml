@@ -49,3 +49,7 @@ spec:
               value: PO3PKFAEKCQWOJ6MNQR7
             - name: SPACES_SECRET
               value: SEZOdptcZOxXNMCTFqhWq498ji/1bcR9gOQNBmdiurk
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name

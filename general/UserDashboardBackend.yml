@@ -53,3 +53,7 @@ spec:
               value: "release"
             - name: SAMPLE_RATE
               value: "1.0"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name

@@ -45,3 +45,7 @@ spec:
               value: rediss://default:kulqkv6en3um9u09@private-athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061
             - name: PG_URL
               value: postgresql://doadmin:rh3rc0vgg1f706kz@private-athenadb-do-user-9223163-0.b.db.ondigitalocean.com:25060/defaultdb
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
