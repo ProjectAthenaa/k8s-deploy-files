@@ -49,7 +49,7 @@ spec:
             #              value: Production
             - name: SAMPLE_RATE
               value: "1.0"
-            - name: POG_NAME
+            - name: POD_NAME
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
