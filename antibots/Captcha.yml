@@ -36,7 +36,7 @@ spec:
         app: captcha
     spec:
       nodeSelector:
-        doks.digitalocean.com/node-pool: general
+        doks.digitalocean.com/node-pool: antibots
       containers:
         - name: captcha
           image: registry.digitalocean.com/athenabot/antibots/captcha:latest
