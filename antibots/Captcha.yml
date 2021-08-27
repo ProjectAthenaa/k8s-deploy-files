@@ -3,7 +3,7 @@ kind: Service
 metadata:
   annotations:
     linkerd.io/inject: enabled
-  namespace: general
+  namespace: antibots
   name: captcha-service
 spec:
   type: ClusterIP
@@ -19,7 +19,7 @@ kind: Deployment
 metadata:
   annotations:
     linkerd.io/inject: enabled
-  namespace: general
+  namespace: antibots
   name: captcha
 spec:
   replicas: 1
@@ -31,7 +31,7 @@ spec:
       annotations:
         linkerd.io/inject: enabled
         config.linkerd.io/skip-outbound-ports: 25061-25061
-      namespace: general
+      namespace: antibots
       labels:
         app: captcha
     spec:
