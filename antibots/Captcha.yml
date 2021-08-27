@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    linkerd.io/inject: enabled
+#  annotations:
+#    linkerd.io/inject: enabled
   namespace: antibots
   name: captcha-service
 spec:
@@ -17,8 +17,8 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    linkerd.io/inject: enabled
+#  annotations:
+#    linkerd.io/inject: enabled
   namespace: antibots
   name: captcha
 spec:
@@ -28,9 +28,9 @@ spec:
       app: captcha
   template:
     metadata:
-      annotations:
-        linkerd.io/inject: enabled
-        config.linkerd.io/skip-outbound-ports: 25061-25061
+#      annotations:
+#        linkerd.io/inject: enabled
+#        config.linkerd.io/skip-outbound-ports: 25061-25061
       namespace: antibots
       labels:
         app: captcha
