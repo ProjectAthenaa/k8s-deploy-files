@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  namespace: modules
+  name: target
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: target
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  namespace: modules
+  name: target
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: target
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      namespace: modules
+      labels:
+        app: target
+    spec:
+      nodeSelector:
+        doks.digitalocean.com/node-pool: modules
+      containers:
+        - name: footlocker
+          image: registry.digitalocean.com/athenabot/modules/target:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REDIS_URL
+              value: rediss://default:kulqkv6en3um9u09@private-athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061
+            - name: PG_URL
+              value: rediss://default:kulqkv6en3um9u09@athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061
