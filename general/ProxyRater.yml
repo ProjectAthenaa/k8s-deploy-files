@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  namespace: general
+  name: proxy-rater-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: proxy-rater
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  namespace: general
+  name: proxy-rater
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy-rater
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+        config.linkerd.io/skip-outbound-ports: 25061-25061
+      namespace: general
+      labels:
+        app: proxy-rater
+    spec:
+      nodeSelector:
+        doks.digitalocean.com/node-pool: general
+      containers:
+        - name: proxy-rater
+          image: registry.digitalocean.com/athenabot/proxy-rater-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: REDIS_URL
+              value: rediss://default:kulqkv6en3um9u09@private-athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061
+            - name: PG_URL
+              value: postgresql://doadmin:rh3rc0vgg1f706kz@private-athenadb-do-user-9223163-0.b.db.ondigitalocean.com:25060/defaultdb
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
