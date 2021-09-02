@@ -54,3 +54,5 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: DO_TOKEN
+              value: e10b653ac96857bde053be5c9fefa2612d8ffb6df72702a0700b3c81dedabd53
