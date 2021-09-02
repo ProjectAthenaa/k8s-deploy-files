@@ -20,6 +20,8 @@ metadata:
     linkerd.io/inject: enabled
   namespace: modules
   name: target
+  labels:
+    app: Target
 spec:
   replicas: 1
   selector:
@@ -36,7 +38,7 @@ spec:
       nodeSelector:
         doks.digitalocean.com/node-pool: modules
       containers:
-        - name: footlocker
+        - name: target
           image: registry.digitalocean.com/athenabot/modules/target:latest
           ports:
             - containerPort: 3000
@@ -45,3 +47,11 @@ spec:
               value: rediss://default:kulqkv6en3um9u09@private-athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061
             - name: PG_URL
               value: rediss://default:kulqkv6en3um9u09@athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: Name
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels["app"]
