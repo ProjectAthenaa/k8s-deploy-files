@@ -49,7 +49,3 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-            - name: Name
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels
