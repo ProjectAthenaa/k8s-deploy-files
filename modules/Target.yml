@@ -20,8 +20,6 @@ metadata:
     linkerd.io/inject: enabled
   namespace: modules
   name: target
-  labels:
-    app: Target
 spec:
   replicas: 1
   selector:
@@ -54,4 +52,4 @@ spec:
             - name: Name
               valueFrom:
                 fieldRef:
-                  fieldPath: metadata.labels["app"]
+                  fieldPath: metadata.labels
