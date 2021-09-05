@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  namespace: general
+  name: proxy-client-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: proxy-client
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  namespace: general
+  name: proxy-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy-client
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+        config.linkerd.io/skip-outbound-ports: 25061-25061
+      namespace: general
+      labels:
+        app: proxy-client
+    spec:
+      nodeSelector:
+        doks.digitalocean.com/node-pool: general
+      containers:
+        - name: proxy-client
+          image: registry.digitalocean.com/athenabot/general/client-proxy-service:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REDIS_URL
+              value: rediss://default:kulqkv6en3um9u09@private-athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061
+            - name: PG_URL
+              value: postgresql://doadmin:olwikzizq24jj9ni@test-pg-do-user-9223163-0.b.db.ondigitalocean.com:25060/defaultdb
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "360000"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "360000"
+    ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+      grpc_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+    linkerd.io/inject: ingress
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+  name: grpc
+  namespace: general
+spec:
+  rules:
+    - host: secure.athenabot.com
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: proxy-client-service
+                port:
+                  number: 3000
