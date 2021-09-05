@@ -13,8 +13,6 @@ metadata:
   name: web-ingress
   namespace: linkerd-viz
   annotations:
-    nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
-    nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
     nginx.ingress.kubernetes.io/upstream-vhost: $service_name.$namespace.svc.cluster.local:8084
     nginx.ingress.kubernetes.io/configuration-snippet: |
       proxy_set_header Origin "";
@@ -36,25 +34,3 @@ spec:
                 name: web
                 port:
                   number: 8084
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: oauth2-proxy
-  namespace: kube-system
-spec:
-  rules:
-    - host: linkerd.athenabot.com
-      http:
-        paths:
-          - path: /oauth2
-            pathType: Prefix
-            backend:
-              service:
-                name: oauth2-proxy
-                port:
-                  number: 4180
-#  tls:
-#    - hosts:
-#        - linkerd.athenabot.com
-#      secretName: __INGRESS_SECRET__

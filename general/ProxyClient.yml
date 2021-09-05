@@ -59,6 +59,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "360000"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "360000"
     ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/grpc-backend: "true"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       proxy_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
       grpc_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
