@@ -38,7 +38,7 @@ spec:
         doks.digitalocean.com/node-pool: general
       containers:
         - name: proxy-client
-          image: registry.digitalocean.com/athenabot/general/client-proxy-service:latest
+          image: registry.digitalocean.com/athenabot/general/proxy-client-service:latest
           ports:
             - containerPort: 3000
           env:
