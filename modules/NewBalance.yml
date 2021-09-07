@@ -3,7 +3,7 @@ kind: Service
 metadata:
   annotations:
     linkerd.io/inject: enabled
-  namespace: monitors
+  namespace: modules
   name: newbalance-service
 spec:
   type: ClusterIP
@@ -18,7 +18,7 @@ kind: Deployment
 metadata:
   annotations:
     linkerd.io/inject: enabled
-  namespace: monitors
+  namespace: modules
   name: newbalance
 spec:
   replicas: 5
@@ -29,15 +29,15 @@ spec:
     metadata:
       annotations:
         linkerd.io/inject: enabled
-      namespace: monitors
+      namespace: modules
       labels:
         app: newbalance
     spec:
       nodeSelector:
-        doks.digitalocean.com/node-pool: monitors
+        doks.digitalocean.com/node-pool: modules
       containers:
         - name: newbalance
-          image: registry.digitalocean.com/athenabot/monitors/newbalance:latest
+          image: registry.digitalocean.com/athenabot/modules/newbalance:latest
           ports:
             - containerPort: 3000
           env:
