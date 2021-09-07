@@ -29,7 +29,7 @@ spec:
     metadata:
       annotations:
         linkerd.io/inject: enabled
-        config.linkerd.io/skip-outbound-ports: 25061-25061
+#        config.linkerd.io/skip-outbound-ports: 25061-25061
       namespace: general
       labels:
         app: scheduling
