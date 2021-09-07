@@ -4,7 +4,7 @@ metadata:
   annotations:
     linkerd.io/inject: enabled
   namespace: modules
-  name: target
+  name: target-service
 spec:
   type: ClusterIP
   ports:
