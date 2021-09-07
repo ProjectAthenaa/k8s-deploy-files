@@ -27,9 +27,9 @@ jobs:
       - name: Apply General Configuration
         run: make deployGeneral
 
-      #      - name: Apply Monitor Configuration
-      #        working-directory: "monitors"
-      #        run: kubectl apply -f .
+      - name: Apply Monitor Configuration
+        working-directory: "monitors"
+        run: kubectl apply -f .
 
       - name: Apply Module Configuration
         run: make deployModules
