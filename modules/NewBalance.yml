@@ -21,7 +21,7 @@ metadata:
   namespace: modules
   name: newbalance
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: newbalance
