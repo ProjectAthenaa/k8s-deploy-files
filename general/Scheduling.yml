@@ -52,3 +52,5 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: DEBUG
+              value: "1"
