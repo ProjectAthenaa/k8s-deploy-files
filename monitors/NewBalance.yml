@@ -4,7 +4,7 @@ metadata:
   annotations:
     linkerd.io/inject: enabled
   namespace: monitors
-  name: newbalance-monitor-service
+  name: newbalance
 spec:
   type: ClusterIP
   ports:
