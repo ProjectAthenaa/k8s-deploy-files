@@ -4,7 +4,7 @@ metadata:
   annotations:
     linkerd.io/inject: enabled
   namespace: general
-  name: proxy-rater-service
+  name: proxy-rater
 spec:
   type: ClusterIP
   ports:
@@ -38,7 +38,7 @@ spec:
         doks.digitalocean.com/node-pool: general
       containers:
         - name: proxy-rater
-          image: registry.digitalocean.com/athenabot/proxy-rater-service:latest
+          image: registry.digitalocean.com/athenabot/proxy-rater:latest
           ports:
             - containerPort: 8080
           env:
