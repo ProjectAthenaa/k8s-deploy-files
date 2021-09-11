@@ -41,6 +41,8 @@ spec:
           ports:
             - containerPort: 3000
           env:
+            - name: MONITOR_TASK_COUNT
+              value: 5
             - name: REDIS_URL
               value: rediss://default:kulqkv6en3um9u09@private-athena-redis-do-user-9223163-0.b.db.ondigitalocean.com:25061
             - name: PG_URL
@@ -49,5 +51,3 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-            - name: MONITOR_TASK_COUNT
-              value: 5
