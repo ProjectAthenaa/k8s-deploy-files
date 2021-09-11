@@ -49,3 +49,5 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: MONITOR_TASK_COUNT
+              value: 5
