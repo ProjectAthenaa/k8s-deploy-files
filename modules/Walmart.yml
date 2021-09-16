@@ -9,7 +9,7 @@ spec:
   type: ClusterIP
   ports:
     - port: 3000
-      walmartPort: 3000
+      targetPort: 3000
   selector:
     app: walmart
 ---
