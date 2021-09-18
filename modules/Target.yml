@@ -61,10 +61,10 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: target
-  minReplicas: "5"
-  maxReplicas: "100"
+  minReplicas: 5
+  maxReplicas: 100
   metrics:
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: 50%
+        targetAverageUtilization: 50
