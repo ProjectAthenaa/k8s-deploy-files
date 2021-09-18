@@ -52,7 +52,7 @@ spec:
             - name: DEBUG
               value: "1"
 ---
-apiVersion: autoscaling/v1
+apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: target-hpa
