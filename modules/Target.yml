@@ -50,4 +50,4 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: DEBUG
-              value: 1
+              value: "1"
