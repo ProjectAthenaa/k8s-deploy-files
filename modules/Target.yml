@@ -61,6 +61,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: target
+    namespace: modules
   minReplicas: 5
   maxReplicas: 100
   metrics:
