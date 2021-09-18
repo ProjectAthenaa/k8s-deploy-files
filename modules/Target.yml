@@ -51,3 +51,20 @@ spec:
                   fieldPath: metadata.name
             - name: DEBUG
               value: "1"
+---
+apiersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: target-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: target
+  minReplicas: 5
+  maxReplicas: 100
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 50%
