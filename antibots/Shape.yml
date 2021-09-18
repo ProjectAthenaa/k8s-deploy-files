@@ -40,3 +40,21 @@ spec:
           image: registry.digitalocean.com/athenabot/antibots/shape:latest
           ports:
             - containerPort: 3000
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: shape-hpa
+  namespace: amtibots
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: shape
+  minReplicas: 5
+  maxReplicas: 100
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 50
