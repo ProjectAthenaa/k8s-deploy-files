@@ -49,8 +49,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-            - name: DEBUG
-              value: "1"
+#            - name: DEBUG
+#              value: "1"
 ---
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
