@@ -36,7 +36,7 @@ spec:
             path: /tasks.*
             backend:
               service:
-                name: scheduling-service
+                name: tasks-service
                 port:
                   number: 8080
           - pathType: Prefix
