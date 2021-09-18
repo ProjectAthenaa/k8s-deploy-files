@@ -21,7 +21,7 @@ metadata:
   namespace: modules
   name: target
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: target
@@ -49,3 +49,5 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: DEBUG
+              value: 1
