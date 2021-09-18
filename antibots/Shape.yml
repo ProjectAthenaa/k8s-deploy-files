@@ -45,7 +45,7 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: shape-hpa
-  namespace: amtibots
+  namespace: antibots
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
