@@ -21,7 +21,7 @@ metadata:
   name: authentication
   namespace: general
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: authentication
