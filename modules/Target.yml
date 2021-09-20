@@ -49,8 +49,12 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-#            - name: DEBUG
-#              value: "1"
+            - name: DD_LOGS_ENABLED
+              value: "true"
+            - name: DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL
+              value: "true"
+            - name: DD_CONTAINER_EXCLUDE_LOGS
+              value: "name:datadog-agent"
 ---
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
