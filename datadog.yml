@@ -15,6 +15,7 @@ datadog:
     portEnabled: true
     containerCollectAll: true
     containerCollectUsingFiles: true
+
   apm:
     socketPath: /var/run/datadog/apm.socket
     hostSocketPath: /var/run/datadog/

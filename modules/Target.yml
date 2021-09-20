@@ -49,6 +49,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: SENTRY_DSN
+              value: https://c8dd3a8434594b5fa00c146a44258e66@o706779.ingest.sentry.io/5970115
 ---
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
